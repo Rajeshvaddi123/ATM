@@ -1,0 +1,108 @@
+///  InvaildCustomerException class
+{
+
+public class InvaildCustomerException extends Exception
+{
+	public String getMessage()
+	{
+		return "invalid input Try again!";
+	}
+
+}
+
+
+// ATM CLASS
+
+import java.util.Scanner;
+
+public class ATM
+{ 
+	   private int acc_num=3333;
+	  private int ps_wrd = 9999;
+	  int ac;
+	  int pw;
+	  public void acceptInput()
+	  {
+		  Scanner scan = new Scanner(System.in);
+		  System.out.println("Enter the acccount number");
+		   ac = scan.nextInt();
+		   System.out.println("Enter the password ");
+		   pw = scan .nextInt();
+	  }
+	  public void verify()throws Exception
+	  {
+		  if(ac==acc_num&&pw==ps_wrd)
+		  {
+			  System.out.println("Collect your Cash!");
+		  }
+		  else
+		  {
+			  InvaildCustomerException ice =new  InvaildCustomerException();
+			  System.out.println(ice.getMessage());
+			  throw ice;
+			
+	  }
+}
+}
+
+// BANK CLASS
+
+package applicationprojects;
+
+public class Bank
+{
+
+	public void initiate()
+	{
+	ATM atm = new ATM();
+	
+	
+	
+		try
+		{
+			atm.acceptInput();
+			atm.verify();
+		}
+		catch(Exception e)
+		{
+			try
+			{
+				atm.acceptInput();
+				atm.verify();
+			}
+			catch(Exception f)
+			{
+				try
+				{
+					atm.acceptInput();
+					atm.verify();
+				}
+				catch(Exception g)
+				{
+					System.out.println("Your card is blocked");
+					System.exit(0);
+			}
+			}
+		}
+
+}
+}
+
+
+// LAUNCH CLASS
+
+package applicationprojects;
+
+public class Launch {
+
+	public static void main(String[] args) {
+		 Bank b = new Bank();
+		 b.initiate();
+				 
+
+	}
+
+}
+
+
+
